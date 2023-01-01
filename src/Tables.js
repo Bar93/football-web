@@ -3,7 +3,7 @@ import React from "react";
 
 class Tables extends React.Component {
 
-    state = {teams: [],showTeams:false,showPlayer:true,players: [],teamID:-1}
+    state = {teams: [],showTeams:false,showPlayer:true,players: [],teamID:120}
 
     componentDidMount() {
         this.getLeagueData();
@@ -28,13 +28,15 @@ class Tables extends React.Component {
     }
 
 
-    showPlayers=(teamId)=>{
+    showPlayers=(event)=>{
+        let id=event.target.firstChild.data;
         debugger;
         let tempPlayers = [];
-        axios.get("https://app.seker.live/fm1/squad/"+this.props.value+"/"+teamId)
+        axios.get("https://app.seker.live/fm1/squad/"+this.props.value+"/"+id)
             .then(response=> {
+                debugger;
                 response.data.map((item) => {
-                    tempPlayers.push(item.firstName)
+                    tempPlayers.push(item)
                 })
                 this.setState({
                     players: tempPlayers
@@ -42,12 +44,6 @@ class Tables extends React.Component {
             });
 
         this.setState({showTeams:true,showPlayer:false})
-    }
-
-    teamIDChanged = (event) => {
-        this.setState({
-            teamID: event.target.value
-        })
     }
 
     render() {
@@ -61,14 +57,12 @@ class Tables extends React.Component {
                     {this.state.teams.map((team) => {
                         return (
                             <tr>
-                                <td>{team.id}</td>
+                                <td onClick={this.showPlayers}>{team.id}</td>
                                 <td>{team.name}</td>
                             </tr>
                         )
                     })}
                 </table>
-                <input type={"number"} value={this.state.value} onChange={this.teamIDChanged}/>
-                <button onClick={this.showPlayers(this.state.teamID)}>-></button>
                 <table className={"player"}  hidden={this.state.showPlayer}>
                     <tr>
                         <th>ID</th>
@@ -79,8 +73,8 @@ class Tables extends React.Component {
                         return (
                             <tr>
                                 <td>{player.id}</td>
-                                <td>{player.firsname}</td>
-                                <td>{player.lastname}</td>
+                                <td>{player.firstName}</td>
+                                <td>{player.lastName}</td>
                             </tr>
                         )
                     })}
