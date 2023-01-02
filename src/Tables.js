@@ -3,10 +3,13 @@ import React from "react";
 
 class Tables extends React.Component {
 
-    state = {teams: [],showTeams:false,showPlayer:true,players: [],teamID:120}
+    state = {teams: [],showTeams:false
+        ,showPlayer:true,players: [],historyData:this.props.history,
+    goalsData:this.props.goalsData,dataStatus:true}
 
     componentDidMount() {
         this.getLeagueData();
+
     }
 
     constructor(props) {
@@ -16,25 +19,56 @@ class Tables extends React.Component {
 
     getLeagueData = () => {
         let tempTeamsName = [];
-        axios.get("https://app.seker.live/fm1/teams/"+ this.props.value)
+        let teamData={id:0,name:"",points:0,difference:0}
+        axios.get("https://app.seker.live/fm1/teams/"+ this.props.leagueId)
             .then((response) => {
                 response.data.map((item) => {
-                    tempTeamsName.push(item)
+                    teamData={id:item.id,name:item.name,points:0,difference:0}
+                    tempTeamsName.push(teamData)
+                    teamData={id:0,name:"",points:0,difference:0}
                 })
                 this.setState({
                     teams: tempTeamsName
                 })
             });
+        setTimeout(() => {
+            this.calculatePoints();
+        }, 1 * 1000)
+
+    }
+
+    calculatePoints=()=>{
+        debugger;
+        let tempGoalsData=this.state.goalsData;
+        let winTeam="";
+        tempGoalsData.map((game)=>{
+            if (game.home>game.away){
+                winTeam=game.homeTeamName;
+                let index=this.state.teams.findIndex(team=>team.name==winTeam)
+                this.state.teams[index].points=this.state.teams[index].points+3
+            }
+            if (game.home<game.away){
+                winTeam=game.awayTeamName;
+                let index=this.state.teams.findIndex(team=>team.name==winTeam)
+                this.state.teams[index].points=this.state.teams[index].points+3
+            }
+            if (game.home==game.away){
+                let index=this.state.teams.findIndex(team=>team.name==game.homeTeamName)
+                this.state.teams[index].points=this.state.teams[index].points+1
+                let index2=this.state.teams.findIndex(team=>team.name==game.awayTeamName)
+                this.state.teams[index].points=this.state.teams[index2].points+1
+            }
+
+        })
+        this.setState({dataStatus:false})
     }
 
 
     showPlayers=(event)=>{
         let id=event.target.firstChild.data;
-        debugger;
         let tempPlayers = [];
-        axios.get("https://app.seker.live/fm1/squad/"+this.props.value+"/"+id)
+        axios.get("https://app.seker.live/fm1/squad/"+this.props.leagueId+"/"+id)
             .then(response=> {
-                debugger;
                 response.data.map((item) => {
                     tempPlayers.push(item)
                 })
@@ -47,41 +81,50 @@ class Tables extends React.Component {
     }
 
     render() {
+
         return (
             <div>
-                <table className={"teams"} hidden={this.state.showTeams}>
-                    <tr>
-                        <th>ID</th>
-                        <th>Team</th>
-                    </tr>
-                    {this.state.teams.map((team) => {
-                        return (
-                            <tr>
-                                <td onClick={this.showPlayers}>{team.id}</td>
-                                <td>{team.name}</td>
-                            </tr>
-                        )
-                    })}
-                </table>
-                <table className={"player"}  hidden={this.state.showPlayer}>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                    </tr>
-                    {this.state.players.map((player) => {
-                        return (
-                            <tr>
-                                <td>{player.id}</td>
-                                <td>{player.firstName}</td>
-                                <td>{player.lastName}</td>
-                            </tr>
-                        )
-                    })}
-                </table>
+                {
+                    this.state.dataStatus ?
+                        <div>Please wait...</div>
+                        :
+                        <div>
+                            <table className={"teams"} hidden={this.state.showTeams}>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Team</th>
+                                    <th>Points</th>
+                                </tr>
+                                {this.state.teams.map((team) => {
+                                    return (
+                                        <tr>
+                                            <td onClick={this.showPlayers}>{team.id}</td>
+                                            <td>{team.name}</td>
+                                            <td>{team.points}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </table>
+                            <table className={"player"} hidden={this.state.showPlayer}>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                </tr>
+                                {this.state.players.map((player) => {
+                                    return (
+                                        <tr>
+                                            <td>{player.id}</td>
+                                            <td>{player.firstName}</td>
+                                            <td>{player.lastName}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </table>
+                        </div>
+                }
             </div>
-        )
-
+                )
     }
 }
 

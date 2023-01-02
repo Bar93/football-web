@@ -4,7 +4,7 @@ import axios from "axios";
 
 class TopScorer extends React.Component{
 
-    state={topScorer:[],goalData:[],dataStatus: true}
+    state={topScorer:[],goalData:[],dataStatus:true,historyData:this.props.history}
 
     componentDidMount() {
         this.getGoalData();
@@ -16,15 +16,13 @@ class TopScorer extends React.Component{
 
     getGoalData=()=>{
         let tempGoalData=[];
-        axios.get("https://app.seker.live/fm1/history/"+ this.props.value)
-            .then((response) => {
-                response.data.map((item) => {
+        debugger;
+        this.state.historyData.map((item) => {
                     tempGoalData.push(item.goals)
                 })
                 this.setState({
                     goalData: tempGoalData
                 })
-            });
     }
 
     getAllScorer=()=>{

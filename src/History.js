@@ -4,48 +4,8 @@ import React from "react";
 
 class History extends React.Component {
 
-    state={minRound:0,maxRound:50,historyData:[],goalData:[],dataStatus:true}
+    state={minRound:0,maxRound:50,historyData:this.props.history,goalData:this.props.goalsData,dataStatus:true}
 
-    componentDidMount() {
-        this.getLeagueHistory();
-        setTimeout(() => {
-            this.getGoalData();
-        }, 6 * 1000)
-    }
-
-
-    getLeagueHistory=()=>{
-        let tempHistoryData=[];
-        axios.get("https://app.seker.live/fm1/history/"+ this.props.value)
-            .then((response) => {
-                response.data.map((item) => {
-                    tempHistoryData.push(item)
-                })
-                this.setState({
-                    historyData: tempHistoryData
-                })
-            });
-    }
-
-    getGoalData=()=>{
-        let tempGoalsData=[];
-        let tempGoalGame=[];
-        let gameGoal={home:0,away:0}
-        this.state.historyData.map((item)=>{
-            tempGoalsData.push(item.goals);
-        })
-        tempGoalsData.map((item)=>{
-            item.map((goal)=>{
-                if (goal.home==true){
-                    gameGoal.home++;
-                }
-                else {gameGoal.away++;}
-            })
-            tempGoalGame.push(gameGoal);
-            gameGoal={home:0,away: 0}
-        })
-        this.setState({goalData:tempGoalGame,dataStatus:false});
-    }
 
     setMinRound=(event) => {
             this.setState({
@@ -59,6 +19,7 @@ class History extends React.Component {
     }
 
     filterRound=()=>{
+        debugger;
         const all=this.state.historyData;
         const filterRound = all.filter((roundNum)=>{
             let keep=false;
@@ -73,11 +34,6 @@ class History extends React.Component {
     render() {
         return (
             <div>
-                {
-                this.state.dataStatus ?
-                <div>Please wait...</div>
-                :
-                    <div>
                 <h1> History </h1>
                         <label>min Round</label>
                         <input type={"number"} value={this.state.minRound} onChange={this.setMinRound}/>
@@ -105,8 +61,6 @@ class History extends React.Component {
                         )
                     })}
                 </table>
-            </div>
-                }
             </div>
         )
 

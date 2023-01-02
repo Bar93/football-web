@@ -1,11 +1,17 @@
-function HomePage(){
-    return (
-        <div>
-           Home
+import React from "react";
 
-        </div>
-    )
+class HomePage extends React.Component {
 
+    render() {
+
+        return (
+            <div>
+                Home
+
+            </div>
+        )
+
+    }
 }
 
 export default HomePage;
