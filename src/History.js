@@ -40,13 +40,11 @@ class History extends React.Component {
                     gameGoal.home++;
                 }
                 else {gameGoal.away++;}
-
             })
             tempGoalGame.push(gameGoal);
             gameGoal={home:0,away: 0}
         })
         this.setState({goalData:tempGoalGame,dataStatus:false});
-
     }
 
     setMinRound=(event) => {

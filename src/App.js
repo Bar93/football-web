@@ -78,7 +78,7 @@ class App extends React.Component {
             <Route path={"/"} element={<HomePage/>}/>
               <Route path={"/table"} element={<Tables value={this.state.currentLeagueId}/>}/>
               <Route path={"/history"} element={<History  value={this.state.currentLeagueId}/>}/>
-              <Route path={"/top-scorer"} element={<TopScorer/>}/>
+              <Route path={"/top-scorer"} element={<TopScorer value={this.state.currentLeagueId}/>}/>
               <Route path={"/statistics"} element={<Statistics/>}/>
              <Route path={"/*"} element={<E404/>}/>
           </Routes>
