@@ -102,6 +102,10 @@ class Tables extends React.Component {
         this.setState({showTeams:true,showPlayer:false})
     }
 
+    hidePlayers=()=>{
+        this.setState({showTeams:false,showPlayer:true})
+    }
+
     render() {
 
         return (
@@ -129,6 +133,7 @@ class Tables extends React.Component {
                                     )
                                 })}
                             </table>
+                            <button onClick={this.hidePlayers} hidden={this.state.showPlayer}>Back</button>
                             <table className={"player"} hidden={this.state.showPlayer}>
                                 <tr>
                                     <th>ID</th>

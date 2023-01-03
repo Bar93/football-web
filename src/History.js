@@ -6,7 +6,6 @@ class History extends React.Component {
 
     state={minRound:0,maxRound:50,historyData:this.props.history,goalData:this.props.goalsData,dataStatus:true}
 
-
     setMinRound=(event) => {
             this.setState({
                 minRound: event.target.value

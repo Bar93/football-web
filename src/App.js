@@ -115,14 +115,14 @@ class App extends React.Component {
   render(){
   return (
       <div className="App">
-        <BrowserRouter>
+        <BrowserRouter className="links">
             <NavLink to={"/"} onClick={this.showSelect}>Home</NavLink>
             <NavLink to={"/table"} hidden={this.state.showNavLink}>Tables</NavLink>
             <NavLink to={"/history"} hidden={this.state.showNavLink}>History</NavLink>
             <NavLink to={"/top-scorer"} hidden={this.state.showNavLink}>Top</NavLink>
             <NavLink to={"/statistics"} hidden={this.state.showNavLink}>Statistics</NavLink>
             <br/>
-            <select value={this.state.currentLeague} onChange={this.setLeagueName} disabled={this.state.showSelect}>
+            <select id={"select"} value={this.state.currentLeague} onChange={this.setLeagueName} disabled={this.state.showSelect}>
                 <option value={"none"} disabled={true}>SELECT LEAGUE</option>
                 {
                     this.state.leagueNameList.map((item) => {
@@ -132,7 +132,7 @@ class App extends React.Component {
                     })
                 }
             </select>
-            <button onClick={this.setLeagueId}>
+            <button class={"button"} onClick={this.setLeagueId}>
                 ENTER
             </button>
                 <br/>

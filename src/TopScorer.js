@@ -1,5 +1,4 @@
 import React from "react";
-import History from "./History";
 import axios from "axios";
 
 class TopScorer extends React.Component{
