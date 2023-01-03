@@ -9,7 +9,6 @@ class Tables extends React.Component {
 
     componentDidMount() {
         this.getLeagueData();
-
     }
 
     constructor(props) {
@@ -60,6 +59,29 @@ class Tables extends React.Component {
             }
 
         })
+        setTimeout(() => {
+            this.calculateDifferenceGoal();
+        }, 1 * 1000)
+
+    }
+
+    calculateDifferenceGoal=()=>{
+        debugger;
+        this.state.goalsData.map((game)=>{
+            let homeDifference=game.home-game.away;
+            let awayDifference=game.away-game.home;
+            let homeName=game.homeTeamName;
+            let awayName=game.awayTeamName;
+            let indexHome=0, indexAway=0;
+              while (homeName!=this.state.teams[indexHome].name){
+                 indexHome++;
+              }
+            while (awayName!=this.state.teams[indexAway].name){
+                indexAway++;
+             }
+            this.state.teams[indexHome].difference=this.state.teams[indexHome].difference+homeDifference;
+            this.state.teams[indexAway].difference=this.state.teams[indexAway].difference+awayDifference;
+          })
         this.setState({dataStatus:false})
     }
 
@@ -94,6 +116,7 @@ class Tables extends React.Component {
                                     <th>ID</th>
                                     <th>Team</th>
                                     <th>Points</th>
+                                    <th>Difference</th>
                                 </tr>
                                 {this.state.teams.map((team) => {
                                     return (
@@ -101,6 +124,7 @@ class Tables extends React.Component {
                                             <td onClick={this.showPlayers}>{team.id}</td>
                                             <td>{team.name}</td>
                                             <td>{team.points}</td>
+                                            <td>{team.difference/2}</td>
                                         </tr>
                                     )
                                 })}

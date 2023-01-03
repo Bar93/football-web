@@ -22,6 +22,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        debugger;
             this.getLeagueData();
     }
 
@@ -140,7 +141,7 @@ class App extends React.Component {
               <Route path={"/table"} element={<Tables leagueId={this.state.currentLeagueId} history={this.state.historyData} goalsData={this.state.goalsData}/>} />
               <Route path={"/history"} element={<History  leagueId={this.state.currentLeagueId} history={this.state.historyData} goalsData={this.state.goalsData}/>}/>
               <Route path={"/top-scorer"} element={<TopScorer leagueId={this.state.currentLeagueId} history={this.state.historyData}/>}/>
-              <Route path={"/statistics"} element={<Statistics/>}/>
+              <Route path={"/statistics"} element={<Statistics history={this.state.historyData}/>}/>
              <Route path={"/*"} element={<E404/>}/>
           </Routes>
         </BrowserRouter>

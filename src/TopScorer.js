@@ -16,7 +16,6 @@ class TopScorer extends React.Component{
 
     getGoalData=()=>{
         let tempGoalData=[];
-        debugger;
         this.state.historyData.map((item) => {
                     tempGoalData.push(item.goals)
                 })
