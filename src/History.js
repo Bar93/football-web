@@ -35,7 +35,7 @@ class History extends React.Component {
             <div>
                 <h1> History </h1>
                         <label>min Round</label>
-                        <input type={"number"} value={this.state.minRound} onChange={this.setMinRound}/>
+                        <input type={"number"} value={this.state.minRound}  onChange={this.setMinRound}/>
                         <label>max Round</label>
                         <input type={"number"} value={this.state.maxRound} onChange={this.setMaxRound}/>
                 <table className={"History"}>

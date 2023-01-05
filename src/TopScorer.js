@@ -82,13 +82,13 @@ class TopScorer extends React.Component{
                             <td>{this.state.topScorer[this.state.topScorer.length-1].goals}</td>
                         </tr>
                 <tr>
-                    <td>1</td>
+                    <td>2</td>
                     <td>{this.state.topScorer[this.state.topScorer.length-2].firstName}</td>
                     <td>{this.state.topScorer[this.state.topScorer.length-2].lastName}</td>
                     <td>{this.state.topScorer[this.state.topScorer.length-2].goals}</td>
                 </tr>
                 <tr>
-                    <td>1</td>
+                    <td>3</td>
                     <td>{this.state.topScorer[this.state.topScorer.length-3].firstName}</td>
                     <td>{this.state.topScorer[this.state.topScorer.length-3].lastName}</td>
                     <td>{this.state.topScorer[this.state.topScorer.length-3].goals}</td>

@@ -5,10 +5,19 @@ class Tables extends React.Component {
 
     state = {teams: [],showTeams:false
         ,showPlayer:true,players: [],historyData:this.props.history,
-    goalsData:this.props.goalsData,dataStatus:true}
+    goalsData:this.props.goalsData,dataStatus:true,leaguaId:this.props.leagueId}
 
     componentDidMount() {
         this.getLeagueData();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps!=this.state.leaguaId){
+            this.setState({teams: [],showTeams:false
+                ,showPlayer:true,players: [],historyData:this.props.history,
+                goalsData:this.props.goalsData,dataStatus:true,leaguaId:prevProps})
+            this.getLeagueData();
+        }
     }
 
     constructor(props) {
@@ -37,7 +46,6 @@ class Tables extends React.Component {
     }
 
     calculatePoints=()=>{
-        debugger;
         let tempGoalsData=this.state.goalsData;
         let winTeam="";
         tempGoalsData.map((game)=>{
@@ -66,7 +74,6 @@ class Tables extends React.Component {
     }
 
     calculateDifferenceGoal=()=>{
-        debugger;
         this.state.goalsData.map((game)=>{
             let homeDifference=game.home-game.away;
             let awayDifference=game.away-game.home;
@@ -115,7 +122,8 @@ class Tables extends React.Component {
                         <div>Please wait...</div>
                         :
                         <div>
-                            <table className={"teams"} hidden={this.state.showTeams}>
+                            <label onChange={this.getLeagueData}>{this.props.leagueId}</label>
+                            <table  className={"teams"} hidden={this.state.showTeams}>
                                 <tr>
                                     <th>ID</th>
                                     <th>Team</th>

@@ -1,6 +1,37 @@
+body{
+  background: darkcyan;
+}
 .App {
   text-align: center;
+  font-family: "Aharoni";
+  align-items: center;
 }
+
+.nav{
+  margin: 15px;
+  font-size: xxx-large;
+  background: darkgrey;
+}
+
+table{
+  margin: 0 auto;
+  width: 700px;
+  height: 35px;
+  background-color: #cccccc;
+  font-family: "Aharoni";
+  font-size: large;
+  text-align: center;
+  border: 1px solid;
+  border-bottom-color: white;
+  border-spacing: 1px 1px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+}
+
+tr:hover {background-color: burlywood;}
+
 
 .button {
   background-color: #4CAF50;
@@ -11,7 +42,10 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  font-family: "Aharoni"
 }
+
+
 
 select{
   background-color: #4CAF50;
@@ -23,6 +57,16 @@ select{
   display: inline-block;
   font-size: 16px;
   margin: 40px;
+  font-family: "Aharoni"
+}
+
+.active{
+  color:red
+}
+
+input[type=number] {
+  border: 2px solid red;
+  border-radius: 4px;
 }
 
 
