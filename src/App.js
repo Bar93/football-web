@@ -157,7 +157,6 @@ class App extends React.Component {
                                            element={<Statistics history={this.state.historyData}/>}/>
                                     <Route path={"/*"} element={<E404/>}/>
                                 </Routes>
-                        }
                     </BrowserRouter>
                 </div>
             </div>

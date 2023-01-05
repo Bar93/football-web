@@ -45,6 +45,7 @@ class History extends React.Component {
                         <th>Goal</th>
                         <th>-</th>
                         <th>Goal</th>
+                        <th>Goal</th>
                         <th>Away</th>
                     </tr>
                     {this.filterRound().map((roundNum,index) => {

@@ -5,17 +5,17 @@ class Tables extends React.Component {
 
     state = {teams: [],showTeams:false
         ,showPlayer:true,players: [],historyData:this.props.history,
-    goalsData:this.props.goalsData,dataStatus:true,leaguaId:this.props.leagueId}
+    goalsData:this.props.goalsData,dataStatus:true,leagueId:this.props.leagueId}
 
     componentDidMount() {
         this.getLeagueData();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps!=this.state.leaguaId){
+        if(prevProps!=this.state.leagueId){
             this.setState({teams: [],showTeams:false
                 ,showPlayer:true,players: [],historyData:this.props.history,
-                goalsData:this.props.goalsData,dataStatus:true,leaguaId:prevProps})
+                goalsData:this.props.goalsData,dataStatus:true,leagueId:prevProps})
             this.getLeagueData();
         }
     }
@@ -27,6 +27,7 @@ class Tables extends React.Component {
 
     getLeagueData = () => {
         let tempTeamsName = [];
+        // let tempTeamsList =[];
         let teamData={id:0,name:"",points:0,difference:0}
         axios.get("https://app.seker.live/fm1/teams/"+ this.props.leagueId)
             .then((response) => {
@@ -42,38 +43,51 @@ class Tables extends React.Component {
         setTimeout(() => {
             this.calculatePoints();
         }, 1 * 1000)
-
     }
 
     calculatePoints=()=>{
+        debugger;
         let tempGoalsData=this.state.goalsData;
+        let tempTeamsList=[]
+        for (let i=0;i<this.state.teams.length;i++){
+            tempTeamsList[i]=0
+        }
         let winTeam="";
+        debugger;
         tempGoalsData.map((game)=>{
             if (game.home>game.away){
                 winTeam=game.homeTeamName;
                 let index=this.state.teams.findIndex(team=>team.name==winTeam)
-                this.state.teams[index].points=this.state.teams[index].points+3
+                tempTeamsList[index]=tempTeamsList[index]+3
             }
             if (game.home<game.away){
                 winTeam=game.awayTeamName;
                 let index=this.state.teams.findIndex(team=>team.name==winTeam)
-                this.state.teams[index].points=this.state.teams[index].points+3
+                tempTeamsList[index]=tempTeamsList[index]+3
             }
             if (game.home==game.away){
                 let index=this.state.teams.findIndex(team=>team.name==game.homeTeamName)
-                this.state.teams[index].points=this.state.teams[index].points+1
+                tempTeamsList[index]=tempTeamsList[index]+1
                 let index2=this.state.teams.findIndex(team=>team.name==game.awayTeamName)
-                this.state.teams[index].points=this.state.teams[index2].points+1
+                tempTeamsList[index2]=tempTeamsList[index2]+1
             }
-
         })
+        tempTeamsList.map((item,index)=>{
+            this.state.teams[index].points=item
+        })
+        debugger;
         setTimeout(() => {
             this.calculateDifferenceGoal();
         }, 1 * 1000)
 
     }
 
+
     calculateDifferenceGoal=()=>{
+        let tempTeamsList=[]
+        for (let i=0;i<this.state.teams.length;i++){
+            tempTeamsList[i]=0
+        }
         this.state.goalsData.map((game)=>{
             let homeDifference=game.home-game.away;
             let awayDifference=game.away-game.home;
@@ -86,9 +100,12 @@ class Tables extends React.Component {
             while (awayName!=this.state.teams[indexAway].name){
                 indexAway++;
              }
-            this.state.teams[indexHome].difference=this.state.teams[indexHome].difference+homeDifference;
-            this.state.teams[indexAway].difference=this.state.teams[indexAway].difference+awayDifference;
+            tempTeamsList[indexHome]=tempTeamsList[indexHome]+homeDifference;
+            tempTeamsList[indexAway]=tempTeamsList[indexAway]+awayDifference;
           })
+        tempTeamsList.map((item,index)=>{
+            this.state.teams[index].difference=item
+        })
         this.setState({dataStatus:false})
     }
 
@@ -113,8 +130,11 @@ class Tables extends React.Component {
         this.setState({showTeams:false,showPlayer:true})
     }
 
-    render() {
+    filterTableLeague=()=>{
 
+    }
+
+    render() {
         return (
             <div>
                 {
@@ -122,7 +142,6 @@ class Tables extends React.Component {
                         <div>Please wait...</div>
                         :
                         <div>
-                            <label onChange={this.getLeagueData}>{this.props.leagueId}</label>
                             <table  className={"teams"} hidden={this.state.showTeams}>
                                 <tr>
                                     <th>ID</th>
@@ -136,7 +155,7 @@ class Tables extends React.Component {
                                             <td onClick={this.showPlayers}>{team.id}</td>
                                             <td>{team.name}</td>
                                             <td>{team.points}</td>
-                                            <td>{team.difference/2}</td>
+                                            <td>{team.difference}</td>
                                         </tr>
                                     )
                                 })}
