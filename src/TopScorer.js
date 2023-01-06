@@ -13,7 +13,7 @@ class TopScorer extends React.Component{
     }
 
 
-    getGoalData=()=>{
+    getGoalData=()=>{  //collect all goals in league
         let tempGoalData=[];
         this.state.historyData.map((item) => {
                     tempGoalData.push(item.goals)
@@ -23,7 +23,7 @@ class TopScorer extends React.Component{
                 })
     }
 
-    getAllScorer=()=>{
+    getAllScorer=()=>{ //collect all scorer in league
         const temGoalList=this.state.goalData;
         let tempScorerList=[];
         temGoalList.map((item)=>{
@@ -34,7 +34,7 @@ class TopScorer extends React.Component{
         this.sortTopScorer(tempScorerList);
     }
 
-    sortTopScorer=(scorerList)=>{
+    sortTopScorer=(scorerList)=>{ //sort scorer in league
         let sortedScorerList=[];
         let counter=1,scorer={id:0,firstName:"",lastName:"",goals:0}
         let playerListByGoal=[];

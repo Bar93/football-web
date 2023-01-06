@@ -43,7 +43,7 @@ class Tables extends React.Component {
             });
         setTimeout(() => {
             this.calculatePoints();
-        }, 1 * 1000)
+        }, 1000)
     }
 
     calculatePoints=()=>{
@@ -79,7 +79,7 @@ class Tables extends React.Component {
         debugger;
         setTimeout(() => {
             this.calculateDifferenceGoal();
-        }, 1 * 1000)
+        }, 1000)
 
     }
 

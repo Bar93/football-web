@@ -2,10 +2,11 @@ import axios from "axios";
 import React from "react";
 import "./History.css"
 
+const MAX_ROUND=50
 
 class History extends React.Component {
 
-    state={minRound:0,maxRound:50,historyData:this.props.history,goalData:this.props.goalsData,dataStatus:true}
+    state={minRound:0,maxRound:MAX_ROUND,historyData:this.props.history,goalData:this.props.goalsData,dataStatus:true}
 
     setMinRound=(event) => {
             this.setState({

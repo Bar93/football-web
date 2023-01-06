@@ -1,7 +1,8 @@
 function E404(){
     return (
+
         <div>
-            404
+            <h1>404</h1>
         </div>
     )
 

@@ -1,10 +1,15 @@
 import React from "react";
 import "./Statistic.css"
 
+const HALF_TIME=45
+const MIN_GOAL_IN_ROUND=999
+const FULL_GAME_TIME=120
+const START_TIME_GAME=-1
+
 class Statistics extends React.Component {
 
     state={historyData:this.props.history,fasterGoal:0,slowGoal:0,goalInFirstHalf:0
-        ,goalInSecHalf:0,mostGoalInRound: {index:0,num:0},minGoalInRound: {index:0,num:100},goalsData:[],dataStatus:true}
+        ,goalInSecHalf:0,mostGoalInRound: {index:0,num:0},minGoalInRound: {index:0,num:MIN_GOAL_IN_ROUND},goalsData:[],dataStatus:true}
 
     componentDidMount() {
         this.getGoalData();
@@ -26,19 +31,19 @@ class Statistics extends React.Component {
 
     checkTimesOfGoal=()=>{
         debugger
-        let fastGoal=120,slowGoal=-1,countGoalFirstHalf=0,countGoalSecHalf=0
+        let fastGoal=FULL_GAME_TIME,slowGoal=START_TIME_GAME,countGoalFirstHalf=0,countGoalSecHalf=0
         this.state.goalsData.map((game)=>{
            game.map((goal)=>{
                if (goal.minute<fastGoal){
                    fastGoal=goal.minute;
                }
-               if (goal.minute<45){
+               if (goal.minute<HALF_TIME){
                    countGoalFirstHalf++;
                }
                if (goal.minute>slowGoal){
                    slowGoal=goal.minute
                }
-               if (goal.minute>=45){
+               if (goal.minute>=HALF_TIME){
                    countGoalSecHalf++;
                }
            })
@@ -50,7 +55,7 @@ class Statistics extends React.Component {
     checkGoalInRound=()=>{
         let goalsByRound =[];
         let maxGoalInRound=0;
-        let minGoalInRound=100;
+        let minGoalInRound=MIN_GOAL_IN_ROUND;
         let indexMax=0;
         let indexMin=0;
         let size = this.state.historyData[this.state.historyData.length-1].round
@@ -71,7 +76,8 @@ class Statistics extends React.Component {
                 indexMin=index;
             }
         })
-        this.setState({mostGoalInRound: {index:indexMax,num:maxGoalInRound},minGoalInRound: {index:indexMin,num:minGoalInRound}});
+        this.setState({mostGoalInRound: {index:indexMax,num:maxGoalInRound}
+            ,minGoalInRound: {index:indexMin,num:minGoalInRound}});
 
     }
 

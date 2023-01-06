@@ -10,12 +10,17 @@ import TopScorer from "./TopScorer";
 import Statistics from "./Statistics";
 import E404 from "./E404";
 
+const FIRST_LEAGUE_ID=-1;
+const API_LEAGUE="https://app.seker.live/fm1/leagues";
+const API_HISTORY="https://app.seker.live/fm1/history/";
+
+
 class App extends React.Component {
     state = {
         leagueNameList: [],
         historyData: [],
         currentLeague: "none",
-        currentLeagueId: -1,
+        currentLeagueId: FIRST_LEAGUE_ID,
         showNavLink: true,
         goalsData: [],
         dataStatus: false
@@ -28,7 +33,7 @@ class App extends React.Component {
 
     getLeagueData = () => {
         let tempLeaguesName = [];
-        axios.get("https://app.seker.live/fm1/leagues")
+        axios.get(API_LEAGUE)
             .then((response) => {
                 response.data.map((item) => {
                     tempLeaguesName.push(item);
@@ -41,7 +46,7 @@ class App extends React.Component {
 
     getLeagueHistory = () => {
         let tempHistoryData = [];
-        axios.get("https://app.seker.live/fm1/history/" + this.state.currentLeagueId)
+        axios.get(API_HISTORY + this.state.currentLeagueId)
             .then((response) => {
                 response.data.map((item) => {
                     tempHistoryData.push(item)
@@ -52,7 +57,7 @@ class App extends React.Component {
             });
         setTimeout(() => {
             this.getGoalData();
-        }, 4 * 1000)
+        }, 3 * 1000)
     }
 
     getGoalData = () => {
@@ -76,7 +81,7 @@ class App extends React.Component {
             tempGoalGame[index].away = gameGoal.away;
             gameGoal = {home: 0, away: 0, homeTeamName: "", awayTeamName: ""}
         })
-        this.setState({goalsData: tempGoalGame, dataStatus: false,showNavLink: false,dataStatus: false});
+        this.setState({goalsData: tempGoalGame, dataStatus: false,showNavLink: false});
     }
 
 
@@ -98,7 +103,7 @@ class App extends React.Component {
         })
         setTimeout(() => {
             this.getLeagueHistory();
-        }, 1 * 1000)
+        },  1000)
 
     }
 
@@ -119,7 +124,7 @@ class App extends React.Component {
                                  hidden={this.state.showNavLink}>Statistics</NavLink>
                         <br/>
                         <select id={"select"} value={this.state.currentLeague} onChange={this.setLeagueName}>
-                            <option value={"none"} disabled={true}>SELECT LEAGUE</option>
+                            <option value={"none"} disabled={true}>SELECT & ENTER</option>
                             {
                                 this.state.leagueNameList.map((item) => {
                                     return (
@@ -128,7 +133,7 @@ class App extends React.Component {
                                 })
                             }
                         </select>
-                        <button class={"button"} onClick={this.setLeagueId}>
+                        <button className={"button"} onClick={this.setLeagueId}>
                             ENTER
                         </button>
                         {

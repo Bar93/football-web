@@ -1,12 +1,12 @@
 
 .teams tr:nth-child(2){
-    background: blue;
+    background: royalblue;
 }
 .teams tr:nth-child(3){
-    background: blue;
+    background: royalblue;
 }
 .teams tr:nth-child(4){
-    background: blue;
+    background: royalblue;
 }
 .teams tr:last-child{
     background: red;
