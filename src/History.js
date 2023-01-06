@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import "./History.css"
 
 
 class History extends React.Component {
@@ -33,10 +34,15 @@ class History extends React.Component {
     render() {
         return (
             <div>
-                <h1> History </h1>
-                        <label>min Round</label>
+                <div>
+                    <section className="wrapperHistory">
+                        <div className="topHistory">History</div>
+                        <div className="bottomHistory" aria-hidden="true">History</div>
+                    </section>
+                </div>
+                        <label>min Round:</label>
                         <input type={"number"} value={this.state.minRound}  onChange={this.setMinRound}/>
-                        <label>max Round</label>
+                        <label>max Round:</label>
                         <input type={"number"} value={this.state.maxRound} onChange={this.setMaxRound}/>
                 <table className={"History"}>
                     <tr>

@@ -1,5 +1,9 @@
 body{
-  background: darkcyan;
+  background-image: url("background1.jpg");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-attachment: fixed;
+  background-size: 100%;
 }
 .App {
   text-align: center;
@@ -10,7 +14,7 @@ body{
 .nav{
   margin: 15px;
   font-size: xxx-large;
-  background: darkgrey;
+  background: black;
 }
 
 table{
@@ -45,8 +49,6 @@ tr:hover {background-color: burlywood;}
   font-family: "Aharoni"
 }
 
-
-
 select{
   background-color: #4CAF50;
   border: none;
@@ -68,6 +70,66 @@ input[type=number] {
   border: 2px solid red;
   border-radius: 4px;
 }
+
+p {
+  margin: 0;
+  padding: 10px 0;
+  color: #777;
+  align-items: center;
+  width: 50%;
+}
+
+.clear {
+  clear: both;
+}
+.load-wrapp {
+  width: 100px;
+  height: 150px;
+  margin: 0 10px 10px 40%;
+  padding: 20px 20px 20px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #d8d8d8;
+  align-items: center;
+}
+
+.load-wrapp p {
+  padding: 0 0 20px;
+  align-items: center;
+}
+
+.ring-1 {
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 7px dashed #4b9cdb;
+  border-radius: 100%;
+  align-items: center;
+}
+
+.load-4 .ring-1 {
+  animation: loadingD 1.5s 0.3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+  align-items: center;
+}
+
+.l-4 {
+  animation-delay: 0.84s;
+}
+
+@keyframes loadingD {
+0 {
+  transform: rotate(0deg);
+}
+50% {
+  transform: rotate(180deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+}
+
+
 
 
 

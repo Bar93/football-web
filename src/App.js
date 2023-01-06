@@ -16,10 +16,9 @@ class App extends React.Component {
         historyData: [],
         currentLeague: "none",
         currentLeagueId: -1,
-        showSelect: false,
         showNavLink: true,
         goalsData: [],
-        dataStatus: true
+        dataStatus: false
     }
 
     componentDidMount() {
@@ -77,7 +76,7 @@ class App extends React.Component {
             tempGoalGame[index].away = gameGoal.away;
             gameGoal = {home: 0, away: 0, homeTeamName: "", awayTeamName: ""}
         })
-        this.setState({goalsData: tempGoalGame, dataStatus: false});
+        this.setState({goalsData: tempGoalGame, dataStatus: false,showNavLink: false,dataStatus: false});
     }
 
 
@@ -93,9 +92,7 @@ class App extends React.Component {
         this.state.leagueNameList.map((item) => {
             if (item.name == this.state.currentLeague) {
                 this.setState({
-                    currentLeagueId: item.id,
-                    showSelect: true,
-                    showNavLink: false
+                    currentLeagueId: item.id,dataStatus: true
                 })
             }
         })
@@ -105,10 +102,6 @@ class App extends React.Component {
 
     }
 
-
-    showSelect = () => {
-        this.setState({showSelect: false, showNavLink: true})
-    }
 
     render() {
         return (
@@ -138,10 +131,15 @@ class App extends React.Component {
                         <button class={"button"} onClick={this.setLeagueId}>
                             ENTER
                         </button>
-                        {/*{*/}
-                        {/*    this.state.dataStatus ?*/}
-                        {/*        <div>Please wait...</div>*/}
-                        {/*        :*/}
+                        {
+                            this.state.dataStatus ?
+                                <div className="load-wrapp">
+                                    <div className="load-4">
+                                        <p>Loading...</p>
+                                        <div className="ring-1"></div>
+                                    </div>
+                                </div>
+                                :
                                 <Routes>
                                     <Route path={"/"} element={<HomePage/>}/>
                                     <Route path={"/table"} element={<Tables leagueId={this.state.currentLeagueId}
@@ -157,6 +155,7 @@ class App extends React.Component {
                                            element={<Statistics history={this.state.historyData}/>}/>
                                     <Route path={"/*"} element={<E404/>}/>
                                 </Routes>
+                        }
                     </BrowserRouter>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import "./TopScorer.css";
 
 class TopScorer extends React.Component{
 
@@ -9,7 +9,7 @@ class TopScorer extends React.Component{
         this.getGoalData();
         setTimeout(() => {
             this.getAllScorer();
-        }, 6 * 1000)
+        }, 2 * 1000)
     }
 
 
@@ -60,14 +60,23 @@ class TopScorer extends React.Component{
     }
 
     render() {
-
         return (
             <div>
+                <div>
+                    <section className="wrapperHistory">
+                        <div className="topHistory">Top Scorer</div>
+                        <div className="bottomHistory" aria-hidden="true">Top Scorer</div>
+                    </section>
+                </div>
                 {
                     this.state.dataStatus ?
-                        <div>Please wait...</div>
+                        <div className="load-wrapp">
+                            <div className="load-4">
+                                <p>Loading...</p>
+                                <div className="ring-1"></div>
+                            </div>
+                        </div>
                         :
-                        <div>
             <table className={"topScoerr"}>
                 <tr>
                     <th>Place</th>
@@ -94,7 +103,6 @@ class TopScorer extends React.Component{
                     <td>{this.state.topScorer[this.state.topScorer.length-3].goals}</td>
                 </tr>
             </table>
-    </div>
     }
             </div>
 

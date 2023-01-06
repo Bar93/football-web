@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import './Tables.css';
 
 class Tables extends React.Component {
 
@@ -130,28 +131,43 @@ class Tables extends React.Component {
         this.setState({showTeams:false,showPlayer:true})
     }
 
-    filterTableLeague=()=>{
-
+    sortTableLeague=()=>{
+            let sortedTeamsList=[];
+            sortedTeamsList=this.state.teams.sort((a,b)=>b.points-a.points || b.difference-a.difference || b.name - a.difference);
+            return sortedTeamsList;
     }
 
     render() {
         return (
             <div>
+                <div>
+                    <section className="wrapperHistory">
+                        <div className="topHistory">Table</div>
+                        <div className="bottomHistory" aria-hidden="true">Table</div>
+                    </section>
+                </div>
                 {
                     this.state.dataStatus ?
-                        <div>Please wait...</div>
+                        <div className="load-wrapp">
+                            <div className="load-4">
+                                <p>Loading...</p>
+                                <div className="ring-1"></div>
+                            </div>
+                        </div>
                         :
                         <div>
                             <table  className={"teams"} hidden={this.state.showTeams}>
                                 <tr>
+                                    <th>Place</th>
                                     <th>ID</th>
                                     <th>Team</th>
                                     <th>Points</th>
                                     <th>Difference</th>
                                 </tr>
-                                {this.state.teams.map((team) => {
+                                {this.sortTableLeague().map((team,index) => {
                                     return (
                                         <tr>
+                                            <td>{index+1}</td>
                                             <td onClick={this.showPlayers}>{team.id}</td>
                                             <td>{team.name}</td>
                                             <td>{team.points}</td>

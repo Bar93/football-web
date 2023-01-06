@@ -1,4 +1,5 @@
 import React from "react";
+import "./Statistic.css"
 
 class Statistics extends React.Component {
 
@@ -9,7 +10,7 @@ class Statistics extends React.Component {
         this.getGoalData();
         setTimeout(() => {
             this.checkTimesOfGoal();
-        }, 6 * 1000)
+        }, 3 * 1000)
         this.checkGoalInRound();
     }
 
@@ -74,27 +75,47 @@ class Statistics extends React.Component {
 
     }
 
-
-
     render() {
         return (
             <div>
+                <div>
+                    <section className="wrapperHistory">
+                        <div className="topHistory">Statistic</div>
+                        <div className="bottomHistory" aria-hidden="true">Statistic</div>
+                    </section>
+                </div>
                 {
                     this.state.dataStatus ?
-                        <div>Please wait...</div>
+                        <div className="load-wrapp">
+                            <div className="load-4">
+                                <p>Loading...</p>
+                                <div className="ring-1"></div>
+                            </div>
+                        </div>
                         :
-                        <div>
-                            <label>fastGoal:{this.state.fasterGoal}</label>
-                            <br/>
-                            <label>slowGoal:{this.state.slowGoal}</label>
-                            <br/>
-                            <label>firstHalf:{this.state.goalInFirstHalf}</label>
-                            <br/>
-                            <label>sectHalf:{this.state.goalInSecHalf}</label>
-                            <br/>
-                            <label>mostGoal:{this.state.mostGoalInRound.index},{this.state.mostGoalInRound.num}</label>
-                            <br/>
-                            <label>minGoal:{this.state.minGoalInRound.index},{this.state.minGoalInRound.num}</label>
+                        <div className={"statistic"}>
+                            <table className={"statistic"}>
+                                <tr>
+                                    <th>   </th>
+                                    <th>Min</th>
+                                    <th>Max</th>
+                                </tr>
+                                <tr>
+                                    <td>Goal Time</td>
+                                    <td>{this.state.slowGoal}</td>
+                                    <td>{this.state.fasterGoal}</td>
+                                </tr>
+                                <tr>
+                                    <td>Goals in Half</td>
+                                    <td>First Half: {this.state.goalInFirstHalf}</td>
+                                    <td>Second Half: {this.state.goalInSecHalf}</td>
+                                </tr>
+                                <tr>
+                                    <td>Goal in Round</td>
+                                    <td>Round: {this.state.minGoalInRound.index+1} Goals:{this.state.minGoalInRound.num}</td>
+                                    <td>Round: {this.state.mostGoalInRound.index+1} Goals:{this.state.mostGoalInRound.num}</td>
+                                </tr>
+                            </table>
                         </div>
                 }
                     </div>

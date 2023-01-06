@@ -1,0 +1,106 @@
+
+.teams tr:nth-child(2){
+    background: blue;
+}
+.teams tr:nth-child(3){
+    background: blue;
+}
+.teams tr:nth-child(4){
+    background: blue;
+}
+.teams tr:last-child{
+    background: red;
+}
+
+p {
+    margin: 0;
+    padding: 10px 0;
+    color: #777;
+    align-items: center;
+    width: 50%;
+}
+
+.clear {
+    clear: both;
+}
+.load-wrapp {
+    width: 100px;
+    height: 80px;
+    margin: 0 10px 10px 40%;
+    padding: 20px 20px 20px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #d8d8d8;
+    align-items: center;
+}
+
+.load-wrapp p {
+    padding: 0 0 20px;
+    align-items: center;
+}
+
+.ring-1 {
+    width: 10px;
+    height: 10px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 7px dashed #4b9cdb;
+    border-radius: 100%;
+    align-items: center;
+}
+
+.load-4 .ring-1 {
+    animation: loadingD 1.5s 0.3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+    align-items: center;
+}
+
+.l-4 {
+    animation-delay: 0.84s;
+}
+
+@keyframes loadingD {
+0 {
+    transform: rotate(0deg);
+}
+50% {
+    transform: rotate(180deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+
+* {
+    box-sizing: border-box;
+}
+:root {
+    --text-color: hsl(0, 0%, 10%);
+}
+body {
+    margin: 0;
+}
+.wrapperHistory {
+    display: grid;
+    place-content: center;
+    min-height: 20vh;
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(90px, 20px, 90px);
+    font-weight: 100;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.wrapperHistory > div {
+    grid-area: 1/1/-1/-1;
+}
+.topHistory {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 48%, 0% 58%);
+}
+.bottomHistory {
+    clip-path: polygon(0% 60%, 100% 50%, 100% 100%, 0% 100%);
+    color: transparent;
+    background: -webkit-linear-gradient(177deg, black 53%, var(--text-color) 65%);
+    background: linear-gradient(177deg, black 53%, var(--text-color) 65%);
+    -webkit-background-clip: text;
+    transform: translateX(-0.02em);
+}
