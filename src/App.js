@@ -89,7 +89,6 @@ class App extends React.Component {
         this.setState({
             currentLeague: event.target.value
         })
-
     }
 
     setLeagueId = () => {
@@ -133,7 +132,7 @@ class App extends React.Component {
                                 })
                             }
                         </select>
-                        <button className={"button"} onClick={this.setLeagueId}>
+                        <button className={"button"} onClick={this.setLeagueId} disabled={this.state.currentLeague=="none"?true:false}>
                             ENTER
                         </button>
                         {

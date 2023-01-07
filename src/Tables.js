@@ -156,6 +156,7 @@ class Tables extends React.Component {
                         </div>
                         :
                         <div>
+                            <label hidden={this.state.showTeams}>Click on the ID team to show players</label>
                             <table  className={"teams"} hidden={this.state.showTeams}>
                                 <tr>
                                     <th>Place</th>
