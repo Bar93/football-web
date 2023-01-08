@@ -92,7 +92,6 @@ class App extends React.Component {
     }
 
     setLeagueId = () => {
-        debugger
         this.state.leagueNameList.map((item) => {
             if (item.name == this.state.currentLeague) {
                 this.setState({

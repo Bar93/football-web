@@ -2,6 +2,9 @@ import axios from "axios";
 import React from "react";
 import './Tables.css';
 
+const API_TEAMS="https://app.seker.live/fm1/teams/";
+const API_SQUAD="https://app.seker.live/fm1/squad/";
+
 class Tables extends React.Component {
 
     state = {teams: [],showTeams:false
@@ -30,7 +33,7 @@ class Tables extends React.Component {
         let tempTeamsName = [];
         // let tempTeamsList =[];
         let teamData={id:0,name:"",points:0,difference:0}
-        axios.get("https://app.seker.live/fm1/teams/"+ this.props.leagueId)
+        axios.get(API_TEAMS+ this.props.leagueId)
             .then((response) => {
                 response.data.map((item) => {
                     teamData={id:item.id,name:item.name,points:0,difference:0}
@@ -47,14 +50,12 @@ class Tables extends React.Component {
     }
 
     calculatePoints=()=>{
-        debugger;
         let tempGoalsData=this.state.goalsData;
         let tempTeamsList=[]
         for (let i=0;i<this.state.teams.length;i++){
             tempTeamsList[i]=0
         }
         let winTeam="";
-        debugger;
         tempGoalsData.map((game)=>{
             if (game.home>game.away){
                 winTeam=game.homeTeamName;
@@ -76,7 +77,6 @@ class Tables extends React.Component {
         tempTeamsList.map((item,index)=>{
             this.state.teams[index].points=item
         })
-        debugger;
         setTimeout(() => {
             this.calculateDifferenceGoal();
         }, 1000)
@@ -114,7 +114,7 @@ class Tables extends React.Component {
     showPlayers=(event)=>{
         let id=event.target.firstChild.data;
         let tempPlayers = [];
-        axios.get("https://app.seker.live/fm1/squad/"+this.props.leagueId+"/"+id)
+        axios.get(API_SQUAD+this.props.leagueId+"/"+id)
             .then(response=> {
                 response.data.map((item) => {
                     tempPlayers.push(item)
@@ -133,7 +133,8 @@ class Tables extends React.Component {
 
     sortTableLeague=()=>{
             let sortedTeamsList=[];
-            sortedTeamsList=this.state.teams.sort((a,b)=>b.points-a.points || b.difference-a.difference || b.name - a.difference);
+          debugger;
+            sortedTeamsList=this.state.teams.sort((a,b)=>(b.points-a.points) || (b.difference-a.difference) || ( a.name > b.name ? 1 : -1))
             return sortedTeamsList;
     }
 
